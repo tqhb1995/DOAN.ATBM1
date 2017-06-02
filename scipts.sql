@@ -196,5 +196,60 @@ GRANT UPDATE, SELECT ON NHANVIEN TO p_NHANVIEN;
 CREATE ROLE p_GIAMDOC;
 CREATE ROLE p_TRUONGPHONG;
 
+-- CÁC HÀM PHỤC VỤ CÀI ĐẶT CHÍNH SÁCH VPD
+create or replace package SET_NHANVIEN_PACKAGE_CONTEXT
+as
+    procedure SET_PHONGBAN;
+    procedure CHECK_TRUONGPHONG;
+    procedure CHECK_GIAMDOC;
+end;
+
+--CREATE NHANVIEN_CONTEXT
+CREATE OR REPLACE CONTEXT NHANVIEN_CONTEXT USING SET_NHANVIEN_PACKAGE_CONTEXT;
+-- TẠO NỘI DUNG PACKAGE
+
+create or replace package body SET_NHANVIEN_PACKAGE_CONTEXT
+as
+  procedure SET_PHONGBAN
+  as PHONGBAN varchar2(20);
+  begin
+    select MAPB into PHONGBAN from DOAN.NHANVIEN where MANV = sys_context('userenv', 'session_user');
+    dbms_session.set_context('NHANVIEN_CONTEXT', 'PHONGBAN', PHONGBAN);
+  end;
+  
+  procedure CHECK_TRUONGPHONG
+  as MYTRPHG varchar2(5);
+  begin
+    select case 
+        when exists(select MAPB  from DOAN.PHONGBAN where TRPHG = sys_context('userenv', 'session_user'))
+        then 'TRUE'
+        else 'FALSE'
+      end into MYTRPHG
+    from dual;
+    dbms_session.set_context('NHANVIEN_CONTEXT', 'MYTRPHG', MYTRPHG);
+  end;
+  
+  
+  procedure CHECK_GIAMDOC
+  as MYGIAMDOC varchar2(5);
+  begin
+    select case 
+        when exists(select MANV  from DOAN.NHANVIEN WHERE MANV = 'GD00000')
+        then 'TRUE'
+        else 'FALSE'
+      end into MYGIAMDOC
+    from dual;
+    dbms_session.set_context('NHANVIEN_CONTEXT', 'MYGIAMDOC', MYGIAMDOC);
+  end;
+end;
+
+--tạo logon trigger cho package
+create or replace trigger set_NHANVIEN_CONTEXT_TRIGGER after logon on database
+begin
+    DOAN.SET_NHANVIEN_PACKAGE_CONTEXT.SET_PHONGBAN;
+    DOAN.SET_NHANVIEN_PACKAGE_CONTEXT.CHECK_TRUONGPHONG;
+    DOAN.SET_NHANVIEN_PACKAGE_CONTEXT.CHECK_GIAMDOC;
+end;
+
 
 
