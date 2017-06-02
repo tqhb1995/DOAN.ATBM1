@@ -13,7 +13,8 @@ CREATE TABLE NHANVIEN (
   SDT VARCHAR (11),
   PHUCAP NUMBER,
   PRIMARY KEY (MANV)
-);CREATE TABLE PHONGBAN(
+)
+;CREATE TABLE PHONGBAN(
   MAPB VARCHAR (20),
   TENPB VARCHAR (20),
   TRPHG VARCHAR (20),
@@ -164,7 +165,31 @@ WHERE MAPB = 'PTHDA';
 
 select * from NHANVIEN where PHG = 'PTHDA';
 
---CREATE ROLE--
+--Tạo user từ mã nhân viên--
+
+declare
+  TEMP varchar2(200);
+begin
+for MANV in (select MANV from NHANVIEN)
+loop
+  TEMP := 'create user ' || MANV.MANV || ' identified by ' || MANV.MANV || ' default tablespace users temporary tablespace temp';
+  execute immediate TEMP;
+end loop;
+end;     
+
+-- Cấp quyền đăng nhập và tạo session
+declare
+  TEMP varchar2(500);
+begin
+for USERNAME in (select MANV from NHANVIEN)
+loop
+  TEMP := 'grant create session to ' || USERNAME.MANV;
+  execute immediate TEMP;
+end loop;
+end;
+
+
+--CREATE ROLE---------------------------------------------------------------------------------
 CREATE ROLE p_NHANVIEN;
 GRANT UPDATE, SELECT ON NHANVIEN TO p_NHANVIEN;
 
