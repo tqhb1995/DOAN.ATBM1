@@ -144,6 +144,38 @@ insert into NHANVIEN VALUES ('PTHDA30009', 'Lê', 'Trung', 'Hải', 'Nam', 6900,
 insert into NHANVIEN VALUES ('PTHDA30010', 'Lê', 'Trung', 'Tuấn', 'Nam', 6900, 'Quảng Trị', '03/05/1995', 'PTHDA30006', 'PTHDA', '0977779563', 5000);
 insert into NHANVIEN VALUES ('PTHDA30011', 'Dương', 'Trung', 'Quân', 'Nam', 6900, 'Quảng Trị', '03/05/1996', 'PTHDA30006', 'PTHDA', '0666619563', 5000);
 
+---NHAN VIEN BINH THUONG---
+insert into NHANVIEN VALUES ('NV40000', 'Nguyễn', 'Hà', 'Ly', 'Nữ', 7000, 'Vinh', '17/01/1985', 'PTHDA30007', '', '07222311135', 2000);
+insert into NHANVIEN VALUES ('NV40001', 'Nguyễn', 'Tuấn', 'Nam', 'Nam', 6000, 'Vinh', '27/02/1986', 'PTHDA30007', '', '07222245335', 2000);
+insert into NHANVIEN VALUES ('NV40002', 'Nguyễn', 'Thị', 'Tuấn', 'Nam', 5000, 'Vinh', '07/03/1987', 'PTHDA30007', '', '07244445335', 2000);
+insert into NHANVIEN VALUES ('NV40003', 'Lê', 'Hòa', 'Hữu', 'Nữ', 4000, 'Phú Yên', '17/04/1988', 'PTHDA30007', '', '07222555335', 2000);
+insert into NHANVIEN VALUES ('NV40004', 'Lê', 'Hào', 'Nghị', 'Nam', 5400, 'Phú Yên', '27/05/1989', 'PTHDA30007', '', '07666645335', 2000);
+insert into NHANVIEN VALUES ('NV40005', 'Lê', 'Huy', 'Đức', 'Nữ', 4300, 'Phú Yên', '07/06/1990', 'PTHDA30011', '', '07222225335', 2000);
+insert into NHANVIEN VALUES ('NV40006', 'Lê', 'Đức', 'Thành', 'Nam', 4000, 'Phú Yên', '17/07/1991', 'PTHDA30011', '', '07632345335', 2000);
+insert into NHANVIEN VALUES ('NV40007', 'Trần', 'Minh', 'Lâm', 'Nữ', 6000, 'Phú Yên', '27/08/1988', 'PTHDA30011', '', '07214245335', 2000);
+insert into NHANVIEN VALUES ('NV40008', 'Trần', 'Chu', 'Đức', 'Nam', 7700, 'Vinh', '07/09/1990', 'PTHDA30011', '', '07222456335', 2000);
+insert into NHANVIEN VALUES ('NV40009', 'Trần', 'Hữu', 'Minh', 'Nam', 7800, 'Vinh', '17/10/1989', 'PTHDA30011', '', '07221223535', 2000);
+insert into NHANVIEN VALUES ('NV40010', 'Trần', 'Mã', 'Dương', 'Nam', 7200, 'Vinh', '27/11/1987', 'PTHDA30011', '', '07222145335', 2000);select * from NHANVIEN;
+--PHAN CONG---
+insert into PHANCONG values ('PKD10006','DA1','12/02/2012');
+insert into PHANCONG values ('NV40010','DA1','12/02/2012');
+insert into PHANCONG values ('NV40009','DA1','12/02/2012');
+insert into PHANCONG values ('NV40008','DA1','12/02/2012');
+
+insert into PHANCONG values ('PTHDA30010','DA2','12/02/2010');
+insert into PHANCONG values ('PTHDA30008','DA2','12/02/2010');
+insert into PHANCONG values ('NV40008','DA2','12/02/2010');
+insert into PHANCONG values ('NV40009','DA2','12/02/2010');
+insert into PHANCONG values ('NV400010','DA2','12/02/2010');
+
+insert into PHANCONG values ('PKD10010','DA3','12/02/2011');
+insert into PHANCONG values ('PKD10011','DA3','12/02/2011');
+insert into PHANCONG values ('NV40000','DA3','12/02/2011');
+insert into PHANCONG values ('NV40001','DA3','12/02/2011');
+insert into PHANCONG values ('NV40002','DA3','12/02/2011');
+
+
+
 select * from NHANVIEN;
 
 ---UPDATE DATA---
