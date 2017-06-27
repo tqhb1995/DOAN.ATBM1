@@ -208,7 +208,17 @@ loop
   TEMP := 'create user ' || MANV.MANV || ' identified by ' || MANV.MANV || ' default tablespace users temporary tablespace temp';
   execute immediate TEMP;
 end loop;
-end;     
+end;    
+--xóa user từ mã nhân viên
+declare
+  abc varchar2(200);
+begin
+for MANV in (select MANV from NHANVIEN)
+loop
+  abc := 'drop user ' || MANV.MANV;
+  execute immediate abc;
+end loop;
+end; 
 
 -- Cấp quyền đăng nhập và tạo session
 declare
