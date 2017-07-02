@@ -25,3 +25,12 @@ policy_function => 'XEM_LUONG_PHUCAP_NHANVIEN',
 sec_relevant_cols=>'LUONG, PHUCAP');
 --sec_relevant_cols_opt=>dbms_rls.ALL_ROWS);-- hàm này có chắc năng xem hết cac thông tin của nhân viên nhưng trừ trường lương và phụ cấp
 END;
+
+
+
+--Cách test--
+--Tạo views--
+CREATE VIEW NHANVIEN_OF_USER AS SELECT * FROM NHANVIEN;
+GRANT SELECT ON NHANVIEN_OF_USER to public;--CẤP QUYỀN SELECT
+--Truy vấn trên user
+SELECT * FROM DOAN.NHANVIEN_OF_USER;
