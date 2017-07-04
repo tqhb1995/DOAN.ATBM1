@@ -34,3 +34,32 @@ CREATE VIEW NHANVIEN_OF_USER AS SELECT * FROM NHANVIEN;
 GRANT SELECT ON NHANVIEN_OF_USER to public;--CẤP QUYỀN SELECT
 --Truy vấn trên user
 SELECT * FROM DOAN.NHANVIEN_OF_USER;
+
+-----------------------
+--Những nhân viên Phòng Kế hoạch mới được thêm, xóa, sửa dữ liệu liên quan các
+--đề án.
+create or replace procedure PKD_UPDATE_DEAN 
+(
+  p_MADA IN VARCHAR2,
+  p_TENDA IN VARCHAR2,
+  p_NGAYBD IN date,
+  p_PHONG IN VARCHAR2,
+  p_DIADIEM_DA IN VARCHAR2
+)
+AS
+  p_MANV varchar2(20);
+  num number;
+BEGIN
+  Select count(*) into num from NHANVIEN where MANV = USER;
+  if (num>0) then
+  begin
+      Select MANV into p_MANV from NHANVIEN where MANV = USER AND PHG = 'PKH';
+      update DEAN 
+      set MADA = p_MADA, TENDA = p_TENDA, NGAYBD = p_NGAYBD, PHONG = p_PHONG, DIADIEM_DA = p_DIADIEM_DA
+      where MADA = p_MADA;
+      end;
+  end if;
+  commit;
+END;
+--test
+EXECUTE DOAN.PKD_UPDATE_DEAN ('DA03', 'Đề án 03', TO_DATE('02/09/2017', 'DD/MM/YYYY'), 'PTHDA', 'Toàn nhà hành chính hành Dinh B');
