@@ -107,3 +107,29 @@ BEGIN
   end if;
   commit;
 END;
+
+--Nhân viên các phòng ban nói chung được thêm mới, xem, sửa dữ liệu cá nhân của
+--chính nhân viên đó (mã nhân viên, họ tên, phái, ngày sinh, số điện thoại)
+grant execute ON PKD_UPDATE_NHANVIEN to public;
+create or replace procedure UPDATE_NHANVIEN 
+(
+  p_MANV IN VARCHAR2,
+  p_HONV IN VARCHAR2,
+  p_TENLOT IN VARCHAR2,
+  p_TENNV IN VARCHAR2,
+  p_PHAI IN VARCHAR2,
+  p_DIACHI IN VARCHAR2,
+  p_NGAYSINH IN DATE,
+  p_SDT IN NUMBER
+)
+AS
+  USERNAME VARCHAR2(20);
+BEGIN
+      -- LẤY MÃ NHÂN VIÊN ĐANG LOGIN
+	USERNAME :=sys_context('userenv', 'session_user');
+      update NHANVIEN 
+      set MANV = p_MANV, HONV = p_HONV, TENLOT = p_TENLOT, TENNV = p_TENNV, PHAI = p_PHAI, DIACHI = p_DIACHI, NGAYSINH  = p_NGAYSINH, SDT = p_SDT
+      where MANV = p_MANV;
+
+  commit;
+END;
