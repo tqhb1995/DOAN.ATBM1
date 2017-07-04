@@ -63,3 +63,47 @@ BEGIN
 END;
 --test
 EXECUTE DOAN.PKD_UPDATE_DEAN ('DA03', 'Đề án 03', TO_DATE('02/09/2017', 'DD/MM/YYYY'), 'PTHDA', 'Toàn nhà hành chính hành Dinh B');
+
+---INSERT--
+grant execute ON PKD_INSERT_DEAN to p_NHANVIEN_PKH;
+create or replace procedure PKD_INSERT_DEAN 
+(
+  p_MADA IN VARCHAR2,
+  p_TENDA IN VARCHAR2,
+  p_NGAYBD IN date,
+  p_PHONG IN VARCHAR2,
+  p_DIADIEM_DA IN VARCHAR2
+)
+AS
+  p_MANV varchar2(20);
+  num number;
+BEGIN
+  Select count(*) into num from NHANVIEN where MANV = USER;
+  if (num>0) then
+  begin
+      Select MANV into p_MANV from NHANVIEN where MANV = USER AND PHG = 'PKH';
+      INSERT INTO DEAN 
+      VALUES (p_MADA, p_TENDA, p_NGAYBD, p_PHONG, p_DIADIEM_DA);
+      end;
+  end if;
+  commit;
+END;
+---DELETE--
+create or replace procedure PKD_DELETE_DEAN 
+(
+  p_MADA IN VARCHAR2
+)
+AS
+  p_MANV varchar2(20);
+  num number;
+BEGIN
+  Select count(*) into num from NHANVIEN where MANV = USER;
+  if (num > 0) then
+  begin
+      Select MANV into p_MANV from NHANVIEN where MANV = USER AND PHG = 'PKH';
+      DELETE FROM DEAN
+      WHERE MADA = p_MADA;
+      end;
+  end if;
+  commit;
+END;
