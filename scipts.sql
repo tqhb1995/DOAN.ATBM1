@@ -282,9 +282,12 @@ CREATE ROLE p_NHANVIEN_THDA;
 --TẠO VIEW để xem thông tin đề án
 CREATE OR REPLACE VIEW VIEW_DEAN
 AS
-  SELECT DA.MADA, DA.TENDA, DA.NGAYBD, DA.DIADIEM_DA, DA.PHONG, PB.TENPB
-  FROM DEAN DA, PHONGBAN PB
-  WHERE DA.PHONG = PB.MAPB;
+  SELECT PC.MANV, DA.MADA, DA.TENDA, DA.NGAYBD, DA.DIADIEM_DA, DA.PHONG, PB.TENPB, PC.THOIGIAN
+  FROM DEAN DA, PHONGBAN PB, PHANCONG PC, NHANVIEN NV
+  WHERE DA.PHONG = PB.MAPB
+      AND DA.MADA = PC.MADA
+      AND NV.MANV = PC.MANV;
+------------------------------------------------------
 --lẤY NHÂN VIÊN LÀ giám đốc và cấp quyền cho giám đốc đó từ role
 begin
 for o_GIAMDOC in (select MANV from NHANVIEN where GHICHU BETWEEN 1 AND 99)
@@ -302,7 +305,7 @@ loop
 end loop;
 end;
 
---Lấy những nhân viên là NHÂN VIÊN thuộc phòng thực hiện đề á và cấp quyền cho nhân viên đó từ ROLE bạn muốn
+--Lấy những nhân viên là NHÂN VIÊN thuộc phòng thực hiện đề án và cấp quyền cho nhân viên đó từ ROLE bạn muốn
 begin
 for o_PHGTHDA in (select MANV 
                     from NHANVIEN NV, PHONGBAN PB 
