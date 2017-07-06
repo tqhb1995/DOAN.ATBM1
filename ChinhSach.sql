@@ -34,7 +34,7 @@ CREATE VIEW NHANVIEN_OF_USER AS SELECT * FROM NHANVIEN;
 GRANT SELECT ON NHANVIEN_OF_USER to public;--CẤP QUYỀN SELECT
 --Truy vấn trên user
 SELECT * FROM DOAN.NHANVIEN_OF_USER;
-
+-------========================================
 -----------------------
 --Những nhân viên Phòng Kế hoạch mới được thêm, xóa, sửa dữ liệu liên quan các
 --đề án.
